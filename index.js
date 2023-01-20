@@ -26,6 +26,9 @@ const offerRoutes = require("./routes/offer");
 app.use(userRoutes);
 app.use(offerRoutes);
 
+app.get("/", (req, res) => {
+  res.json({ message: "Bienvenue au Reacteur!" });
+});
 // Undifined Routes
 app.all("*", (req, res) => {
   res.status(404).json({ message: "This route doesn't exist" });
