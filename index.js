@@ -1,18 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb://localhost/vinted");
+mongoose.connect(process.env.MONGODB_URI);
 
 // Je me connect à mon compte cloudinary avec les identifiants présents sur mon compte
 cloudinary.config({
-  cloud_name: "dhewxj0jc",
-  api_key: "329878291481536",
-  api_secret: "xe_92Fb4hZSL2B9xGfKaLDywMUs",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
   secure: true,
 });
 
@@ -29,6 +32,6 @@ app.all("*", (req, res) => {
 });
 
 // Communication avec le serveur
-app.listen(3003, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server started");
 });
